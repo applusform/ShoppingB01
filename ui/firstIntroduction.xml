@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<FUNCTION id="startAni">
+		<CMD cmd="animation.show('text_Mari_has', 'fade', '', 500, 'function.marihas_red')" />
+	</FUNCTION>
+	<FUNCTION id="marihas_red">
+		<CMD cmd="animation.show('text_Marihas', 'fade', '', 500, 'function.maihas_smile')" />
+	</FUNCTION>
+	<FUNCTION id="maihas_smile">
+		<CMD cmd="animation.flyIn('smile', 0, 250, 195, 114, 'easeOut1', 500, '')" />
+	</FUNCTION>
+	<UILAYOUT landscape="800,381">
+		<WINDOW layout="0,0,800,381" align="linear:vertical" defaultImg="/res/bg_442.png" onFlickLeft="action:go('root.start_navigationContainer.introduction.introduce_navigationContainer','twoIntroduction')">
+			<LABEL layout="50,50" />
+			<WINDOW layout="800,122" align="linear:horizental">
+				<LABEL layout="65,1" />
+				<IMAGE id="text_Mari_has" layout="227,122" defaultImg="/res/intro01_info01.png" visible="invisible" />
+				<LABEL layout="208,1" />
+				<IMAGE id="smile" layout="195,114" defaultImg="/res/intro01_info02.png" visible="invisible" />
+			</WINDOW>
+			<LABEL layout="12,12" />
+			<WINDOW layout="800,135" align="linear:horizontal">
+				<LABEL layout="45,1" />
+				<IMAGE id="text_Marihas" layout="396,135" defaultImg="/res/intro01_info03.png" visible="invisible" />
+				<LABEL layout="12,1" />
+				<IMAGE id="text_content" layout="309,94" defaultImg="/res/intro01_info04.png" />
+			</WINDOW>
+			<WINDOW layout="800,62" align="linear:horizontal|center">
+				<IMAGE layout="10,10" defaultImg="/res/blet_paging.png" />
+				<IMAGE layout="10,10" defaultImg="/res/blet_paging_current.png" />
+				<IMAGE layout="10,10" defaultImg="/res/blet_paging_current.png" />
+			</WINDOW>
+		</WINDOW>
+	</UILAYOUT>
+	<CMD cmd="function.startAni" delay="1000" />
+</MOML>

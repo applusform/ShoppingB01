@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<UILAYOUT landscape="800,442">
+		<NAVIGATIONCONTAINER id="start_navigationContainer" layout="0,0,800,442" selectedItem="start_intro" defaultImg="#ffffff">
+			<VIEWITEM id="start_intro" src="intro.xml" />
+			<VIEWITEM id="start_app" src="main.xml" transitionInEffect="none">
+				<VIEWITEM id="recommendDetail" src="productDetail.xml" transitionInEffect="none" transitionOutEffect="none">
+					<VIEWITEM id="marihasWeb" src="marihasWebsite.xml" transitionInEffect="none" transitionOutEffect="none" />
+				</VIEWITEM>
+
+				<VIEWITEM id="shoppingBasket" src="shoppingBasket.xml" transitionInEffect="none" transitionOutEffect="none">
+					<VIEWITEM id="shoppingBasketDetail" src="productDetail.xml" transitionInEffect="none" transitionOutEffect="none">
+						<VIEWITEM id="marihasWeb" src="marihasWebsite.xml" transitionInEffect="none" transitionOutEffect="none" />
+					</VIEWITEM>
+				</VIEWITEM>
+
+				<VIEWITEM id="productCategory" src="productCategory.xml" transitionInEffect="none" transitionOutEffect="none">
+					<VIEWITEM id="productCategoryDetail" src="productDetail.xml" transitionInEffect="none" transitionOutEffect="none">
+						<VIEWITEM id="marihasWeb" src="marihasWebsite.xml" transitionInEffect="none" transitionOutEffect="none" />
+					</VIEWITEM>
+				</VIEWITEM>
+
+				<VIEWITEM id="bestProduct" src="bestProduct.xml" transitionInEffect="none" transitionOutEffect="none">
+					<VIEWITEM id="bestProductDetail" src="productDetail.xml" transitionInEffect="none" transitionOutEffect="none">
+						<VIEWITEM id="marihasWeb" src="marihasWebsite.xml" transitionInEffect="none" transitionOutEffect="none" />
+					</VIEWITEM>
+				</VIEWITEM>
+
+				<VIEWITEM id="brandProduct" src="brandProduct.xml" transitionInEffect="none" transitionOutEffect="none">
+					<VIEWITEM id="brandProductDetail" src="productDetail.xml" transitionInEffect="none" transitionOutEffect="none">
+						<VIEWITEM id="marihasWeb" src="marihasWebsite.xml" transitionInEffect="none" transitionOutEffect="none" />
+					</VIEWITEM>
+
+					<VIEWITEM id="totolBrandProduct" src="totolBrandProduct.xml" transitionInEffect="none" transitionOutEffect="none">
+						<VIEWITEM id="totolBrandProductDetail" src="productDetail.xml" transitionInEffect="none" transitionOutEffect="none">
+							<VIEWITEM id="marihasWeb" src="marihasWebsite.xml" transitionInEffect="none" transitionOutEffect="none" />
+						</VIEWITEM>
+					</VIEWITEM>
+				</VIEWITEM>
+				<VIEWITEM id="introduction" src="introduction.xml" transitionInEffect="none" transitionOutEffect="none" />
+				<VIEWITEM id="homePage" src="marihasWebsite.xml" transitionInEffect="none" transitionOutEffect="none" />
+				<VIEWITEM id="customerService" src="customerService.xml" transitionInEffect="none" transitionOutEffect="none" />
+				<VIEWITEM id="about" src="about.xml" transitionInEffect="none" transitionOutEffect="none" />
+			</VIEWITEM>
+		</NAVIGATIONCONTAINER>
+	</UILAYOUT>
+</MOML>

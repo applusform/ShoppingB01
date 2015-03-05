@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<UILAYOUT landscape="337,336">
+		<WINDOW layout="0,0,337,336" align="relative">
+			<IMAGE layout="0,0,337,336" defaultImg="{userVariable.photo_img}" />
+			<IMAGE layout="0,0,337,336" defaultImg="/res/product_imgbox.png" />
+		</WINDOW>
+	</UILAYOUT>
+</MOML>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<UILAYOUT landscape="800,442">
+		<WINDOW layout="0,0,800,442" align="linear:vertical" defaultImg="/res/bg.png">
+			<!-- 뒤로 , 홈 으로 가기 -->
+			<WINDOW id="window_recommend_product_title" layout="800,61" align="linear:horizontal" defaultImg="/res/header_bg.png">
+				<BUTTON layout="86,52" defaultImg="/res/btn_back.png" pressedImg="/res/btn_back_off.png" align="linear:left" onClick="action:back('root.start_navigationContainer')" margin="13,3,0,0" />
+				<LABEL layout="242,1" />
+				<IMAGE layout="144,28" defaultImg="/res/marihas_info.png" align="linear:center" margin="0,15,0,0" />
+				<LABEL layout="245,1" />
+				<BUTTON layout="64,51" defaultImg="/res/btn_home.png" pressedImg="/res/btn_home_off.png" align="linear:right" onClick="action:back('root.start_navigationContainer')" margin="0,3,0,0" />
+			</WINDOW>
+
+			<WINDOW layout="800,381" align="relative">
+				<NAVIGATIONCONTAINER id="introduce_navigationContainer" layout="0,0,800,381" selectedItem="firstIntroduction">
+					<VIEWITEM id="firstIntroduction" src="firstIntroduction.xml" transitionInEffect="innerCube:left" transitionOutEffect="innerCube:right" />
+					<VIEWITEM id="twoIntroduction" src="twoIntroduction.xml" transitionInEffect="innerCube:left" transitionOutEffect="innerCube:right" />
+					<VIEWITEM id="threeIntroduction" src="threeIntroduction.xml" transitionInEffect="innerCube:left" transitionOutEffect="innerCube:right" />
+				</NAVIGATIONCONTAINER>
+			</WINDOW>
+		</WINDOW>
+	</UILAYOUT>
+</MOML>
+
+    
+    
+
+	

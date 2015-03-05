@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<FUNCTION id="startAni_who_text">
+		<CMD cmd="animation.flyIn('who_text', -200, 0, 355, 68, 'easeOut1', 500, 'function.startAni_hope_text')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_hope_text">
+		<CMD cmd="animation.flyIn('hope_text', -200, 0, 279, 93, 'easeOut1', 600, 'function.startAni_circle1')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_circle1">
+		<CMD cmd="animation.show('circle1', 'fade', '', 300, 'function.startAni_circle2')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_circle2">
+		<CMD cmd="animation.show('circle2', 'fade', '', 300, 'function.startAni_circle3')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_circle3">
+		<CMD cmd="animation.show('circle3', 'fade', '', 300, 'function.startAni_circle4')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_circle4">
+		<CMD cmd="animation.show('circle4', 'fade', '', 300, 'function.startAni_circle5')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_circle5">
+		<CMD cmd="animation.show('circle5', 'fade', '', 300, 'function.startAni_circle6')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_circle6">
+		<CMD cmd="animation.show('circle6', 'fade', '', 300, 'function.startAni_girl')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_girl">
+		<CMD cmd="animation.show('girl', 'fade', '', 500, '')" />
+	</FUNCTION>
+	<UILAYOUT landscape="800,381">
+		<!-- 본문 -->
+		<WINDOW layout="0,0,800,381" align="linear:vertical" defaultImg="/res/bg_442.png" onFlickLeft="action:go('root.start_navigationContainer.introduction.introduce_navigationContainer','threeIntroduction')"
+			onFlickRight="action:go('root.start_navigationContainer.introduction.introduce_navigationContainer','firstIntroduction'),">
+			<LABEL layout="64,64" />
+			<WINDOW layout="800,317" align="linear:horizontal" margin="0,64,0,0">
+				<WINDOW layout="474,317" align="linear:vertical" margin="45,0,0,0">
+					<WINDOW layout="450,68" align="linear:horizontal">
+						<IMAGE id="who" layout="87,26" defaultImg="/res/intro02_info01.png" />
+						<IMAGE id="who_text" layout="355,68" defaultImg="/res/intro02_info03.png" visible="invisible" margin="8,0,0,0" />
+					</WINDOW>
+					<WINDOW layout="450,93" align="linear:horizontal" margin="0,22,0,0">
+						<IMAGE id="hope" layout="87,26" defaultImg="/res/intro02_info02.png" />
+						<IMAGE id="hope_text" layout="279,93" defaultImg="/res/intro02_info04.png" visible="invisible" margin="8,0,0,0" />
+					</WINDOW>
+					<WINDOW layout="450,62" align="linear:horizontal|center" margin="0,72,0,0">
+						<IMAGE layout="10,10" defaultImg="/res/blet_paging_current.png" margin="260,0,0,0" />
+						<IMAGE layout="10,10" defaultImg="/res/blet_paging.png" />
+						<IMAGE layout="10,10" defaultImg="/res/blet_paging_current.png" />
+					</WINDOW>
+				</WINDOW>
+				<WINDOW layout="381,317" align="relative">
+					<IMAGE id="circle2" layout="87,33,73,71" defaultImg="/res/intro02_info05.png" visible="invisible" />
+					<IMAGE id="circle3" layout="120,82,73,71" defaultImg="/res/intro02_info06.png" visible="invisible" />
+					<IMAGE id="circle4" layout="88,133,73,71" defaultImg="/res/intro02_info07.png" visible="invisible" />
+					<IMAGE id="circle5" layout="29,132,73,71" defaultImg="/res/intro02_info08.png" visible="invisible" />
+					<IMAGE id="circle6" layout="0,81,73,71" defaultImg="/res/intro02_info09.png" visible="invisible" />
+					<IMAGE id="circle1" layout="28,31,73,71" defaultImg="/res/intro02_info10.png" visible="invisible" />
+					<IMAGE id="girl" layout="196,72,66,198" defaultImg="/res/intro02_info11.png" visible="invisible" />
+				</WINDOW>
+			</WINDOW>
+		</WINDOW><!-- 본문 END -->
+	</UILAYOUT>
+	<CMD cmd="function.startAni_who_text" delay="1000" />
+</MOML>

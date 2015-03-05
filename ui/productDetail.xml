@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<!-- 장바구니 디비 부분 -->
+	<FUNCTION id="shoppingBasketSave">
+		<CMD cmd="db.exec('CREATE TABLE IF NOT EXISTS shoppingBasket( _id INTEGER PRIMARY KEY AUTOINCREMENT, image TEXT NOT NULL, name TEXT NOT NULL, maker TEXT NOT NULL, amount TEXT NOT NULL, link_url TEXT NOT NULL)')" />
+		<CMD cmd="function.dbDataCheck" />
+	</FUNCTION>
+
+	<FUNCTION id="dbInsert">
+		<CMD
+			cmd="{db.exec('INSERT INTO shoppingBasket VALUES(null,
+									 \''+xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[1]/text()')+'\' , 
+									 \''+xpath.evaluateEx('productItem', '/ITEM/NAME/text()')+'\' ,
+									 \''+xpath.evaluateEx('productItem', '/ITEM/MAKER/text()')+'\' ,
+									 \''+xpath.evaluateEx('productItem', '/ITEM/AMOUNT/text()')+'\' ,
+									 \''+userVariable.productURL+'\' 
+									  )')}" />
+		<CMD cmd="device.toastPopup('장바구니에 담겼습니다.')" />
+	</FUNCTION>
+
+	<FUNCTION id="dbInsertFall">
+		<CMD cmd="device.toastPopup('이미 등록되어 있습니다.')" />
+	</FUNCTION>
+
+	<FUNCTION id="dbDataCheck">
+		<CMD cmd="db.exec('SELECT COUNT(*) FROM shoppingBasket WHERE link_url=\''+userVariable.productURL+'\'')" />
+		<CMD condition="db.result.data(0, 0) == '0'" cmd="function.dbInsert" elseCmd="function.dbInsertFall" />
+	</FUNCTION>
+
+	<FUNCTION id="infobarAni">
+		<CMD cmd="animation.flyIn('pricebar', 0, 0, 0, pricebar.height, 'easeOut1', 1200, 'function.saleArrowAni')" />
+	</FUNCTION>
+
+	<FUNCTION id="saleArrowAni">
+		<CMD cmd="animation.flyIn('saleArrow', -10, 0, 25, 28, 'easeOut1', 1200, 'function.saleArrowAni')" />
+	</FUNCTION>
+
+	<FUNCTION id="buing">
+		<CMD cmd="userVariable.purchase_url = xpath.evaluateEx('productItem', '/ITEM/ITEMURL/text()')" />
+		<CMD cmd="action:go('root.start_navigationContainer', 'marihasWeb')" />
+	</FUNCTION>
+
+	<FUNCTION id="product_info">
+		<CMD cmd="userVariable.detail_info_maker = xpath.evaluateEx('productItem', '/ITEM/MAKER/text()')" />
+		<CMD cmd="userVariable.detail_info_title = xpath.evaluateEx('productItem', '/ITEM/NAME/text()')" />
+		<CMD cmd="userVariable.detail_info_img = xpath.evaluateEx('productItem', '/ITEM/URL/text()')" />
+		<CMD cmd="url:popupDialog.xml" target="root.new" />
+	</FUNCTION>
+
+	<FUNCTION id="photo_item_01">
+		<CMD cmd="function.select_thumb_reset" />
+		<CMD cmd="thumb_bg1.defaultImg='#FF0000'" />
+		<CMD cmd="action:go('item_navigationContainer','firstProduct')" />
+	</FUNCTION>
+
+	<FUNCTION id="photo_item_02">
+		<CMD cmd="function.select_thumb_reset" />
+		<CMD cmd="thumb_bg2.defaultImg='#FF0000'" />
+		<CMD cmd="action:go('item_navigationContainer','twoProduct')" />
+	</FUNCTION>
+
+	<FUNCTION id="photo_item_03">
+		<CMD cmd="function.select_thumb_reset" />
+		<CMD cmd="thumb_bg3.defaultImg='#FF0000'" />
+		<CMD cmd="action:go('item_navigationContainer','threeProduct')" />
+	</FUNCTION>
+
+	<FUNCTION id="photo_item_04">
+		<CMD cmd="function.select_thumb_reset" />
+		<CMD cmd="thumb_bg4.defaultImg='#FF0000'" />
+		<CMD cmd="action:go('item_navigationContainer','fourProduct')" />
+	</FUNCTION>
+
+	<FUNCTION id="select_thumb_reset">
+		<CMD cmd="thumb_bg1.defaultImg='/res/thumb_bg.png'" />
+		<CMD cmd="thumb_bg2.defaultImg='/res/thumb_bg.png'" />
+		<CMD cmd="thumb_bg3.defaultImg='/res/thumb_bg.png'" />
+		<CMD cmd="thumb_bg4.defaultImg='/res/thumb_bg.png'" />
+	</FUNCTION>
+
+	<FUNCTION id="isEmpty">
+		<CMD condition="string.len(parameter.param[0])==0" cmd="''" elseCmd="parameter.param[0]+'원'" />
+	</FUNCTION>
+
+	<FUNCTION id="line">
+		<CMD condition="string.len(parameter.param[0])==0" cmd="''" elseCmd="'/res/pic_item_pricebar.png'" />
+	</FUNCTION>
+
+	<FUNCTION id="visibleCheck(value)">
+		<CMD condition="value == ''" cmd="'invisible'" elseCmd="'visible'" />
+	</FUNCTION>
+
+	<FUNCTION id="detailBtnAni">
+		<CMD cmd="animation.flyIn('makerLabel', makerLabel.width, 0, 100, '', 2000, '')" />
+		<CMD cmd="animation.flyIn('detailBtn', 0, 200, 100, 'easeOut1', 1000, '')" />
+	</FUNCTION>
+
+	<DATASOURCE id="productItem" src="{userVariable.productURL}" />
+	<CMD cmd="function.detailBtnAni" delay="1200" />
+	<UILAYOUT landscape="800,442">
+		<WINDOW layout="0,0,800,442" align="relative" defaultImg="/res/bg.png">
+			<!-- 뒤로 , 홈 으로 가기 -->
+			<WINDOW layout="0,0,800,61" align="linear:horizental" defaultImg="/res/header_bg.png">
+				<BUTTON layout="86,52" defaultImg="/res/btn_back.png" pressedImg="/res/btn_back_off.png" align="linear:left" onClick="action:back('root.start_navigationContainer')" margin="13,3,0,0" />
+				<IMAGE layout="126,33" defaultImg="/res/header_loge.png" align="linear:center" margin="238,15,0,0" />
+				<BUTTON layout="64,51" defaultImg="/res/btn_home.png" pressedImg="/res/btn_home_off.png" align="linear:right" onClick="action:go('root.start_navigationContainer', 'start_app')" margin="260,3,0,0" />
+			</WINDOW>
+
+			<WINDOW layout="0,61,800,32" align="linear:horizental" defaultImg="/res/header_item_bg.png">
+				<LABEL id="makerLabel" layout="776,32" text="{xpath.evaluateEx('productItem', '/ITEM/MAKER/text()') + ' ' +xpath.evaluateEx('productItem', '/ITEM/NAME/text()')}" fontSize="20" textColor="#ffffff"
+					textAlign="left|center" margin="24,0,0,0" visible="invisible" />
+			</WINDOW>
+
+			<!-- 본문 -->
+			<WINDOW layout="0,93,800,349" align="relative">
+				<!-- main photo -->
+				<WINDOW layout="10,0,337,349" align="relative">
+					<IMAGE layout="0,6,337,336" defaultImg="/res/product_imgbox.png" />
+					<NAVIGATIONCONTAINER id="item_navigationContainer" layout="0,6,337,336" selectedItem="firstProduct">
+						<VIEWITEM id="firstProduct" src="url:thumbProduct.xml" transitionInEffect="flip" transitionOutEffect="flip" />
+						<VIEWITEM id="twoProduct" src="url:thumbProduct.xml" transitionInEffect="blind" transitionOutEffect="blind" />
+						<VIEWITEM id="threeProduct" src="url:thumbProduct.xml" transitionInEffect="tornado:verticaldownleft|verticaldownright" transitionOutEffect="tornado:" />
+						<VIEWITEM id="fourProduct" src="url:thumbProduct.xml" transitionInEffect="mosaic" transitionOutEffect="mosaic" />
+					</NAVIGATIONCONTAINER>
+				</WINDOW>
+				<!-- sub photo -->
+				<WINDOW layout="351,0,85,349" align="linear:vertical|center">
+					<WINDOW id="thumb_bg1" layout="85,85" align="linear:vertical|center" margin="0,4,0,0" defaultImg="#FF0000" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[1]/text()'))}">
+						<BUTTON layout="81,81" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[1]/text()')}" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[1]/text()'))}"
+							onClick="userVariable.photo_img=xpath.evaluateEx('productItem', '/ITEM/IMAGE/IMAGE[1]/text()'),function.photo_item_01" />
+					</WINDOW>
+					<WINDOW id="thumb_bg2" layout="85,85" align="linear:vertical|center" defaultImg="/res/thumb_bg.png" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[2]/text()'))}">
+						<BUTTON layout="81,81" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[2]/text()')}" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[2]/text()'))}"
+							onClick="userVariable.photo_img=xpath.evaluateEx('productItem', '/ITEM/IMAGE/IMAGE[2]/text()'),function.photo_item_02" />
+					</WINDOW>
+					<WINDOW id="thumb_bg3" layout="85,85" align="linear:vertical|center" defaultImg="/res/thumb_bg.png" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[3]/text()'))}">
+						<BUTTON layout="81,81" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[3]/text()')}" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[3]/text()'))}"
+							onClick="userVariable.photo_img=xpath.evaluateEx('productItem', '/ITEM/IMAGE/IMAGE[3]/text()'),function.photo_item_03" />
+					</WINDOW>
+					<WINDOW id="thumb_bg4" layout="85,85" align="linear:vertical|center" defaultImg="/res/thumb_bg.png" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[4]/text()'))}">
+						<BUTTON layout="81,81" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[4]/text()')}" visible="{function.visibleCheck(xpath.evaluateEx('productItem', '/ITEM/IMAGE/THUMB[4]/text()'))}"
+							onClick="userVariable.photo_img=xpath.evaluateEx('productItem', '/ITEM/IMAGE/IMAGE[4]/text()'),function.photo_item_04" />
+					</WINDOW>
+				</WINDOW>
+
+				<!-- 제품 텍스트 정보 노출 영역 -->
+				<WINDOW layout="440,0,363,349" align="linear:vertical">
+					<WINDOW layout="363,211" align="linear:vertical|center" margin="0,22,0,0">
+						<WINDOW layout="309,66" align="linear:vertical" margin="0,18,0,0">
+							<WINDOW layout="309,27" align="linear:horizontal">
+								<IMAGE layout="118,27" margin="8,0,0,0" defaultImg="/res/item_stit_origin.png" />
+								<WINDOW layout="178,27" align="relative">
+									<LABEL layout="16,0,159,24" text="{xpath.evaluateEx('productItem', '/ITEM/ORIGIN/text()')}" fontSize="17" textColor="#3a3a3a" textAlign="left|center" />
+									<LABEL layout="0,24,178,3" defaultImg="/res/pic_item_infobar.png" />
+								</WINDOW>
+							</WINDOW>
+							<WINDOW layout="309,27" align="linear:horizontal" margin="0,12,0,0">
+								<IMAGE layout="118,27" margin="8,0,0,0" defaultImg="/res/item_stit_import.png" />
+								<WINDOW layout="178,27" align="relative">
+									<LABEL layout="16,0,159,24" text="{xpath.evaluateEx('productItem', '/ITEM/IMPORT/text()')}" fontSize="17" textColor="#3a3a3a" textAlign="left|center" />
+									<LABEL layout="0,24,178,3" defaultImg="/res/pic_item_infobar.png" />
+								</WINDOW>
+							</WINDOW>
+						</WINDOW>
+						<WINDOW layout="311,106" align="linear:vertical" margin="0,21,0,0">
+							<WINDOW layout="311,23" align="relative">
+								<IMAGE layout="0,0,311,22" defaultImg="/res/item_stit_price.png" />
+								<IMAGE layout="0,22,311,1" defaultImg="#50000000" />
+							</WINDOW>
+							<WINDOW layout="311,63" align="relative" margin="0,20,0,0">
+								<WINDOW layout="5,7,120,25">
+									<LABEL layout="0,0,120,25" text="{function.isEmpty(xpath.evaluateEx('productItem', '/ITEM/CUSTAMOUNT/text()'))}" fontSize="20" textAlign="center" textColor="#939393" />
+									<IMAGE id="pricebar" layout="0,{parent.height/2-2px},{parent.width},2px" defaultImg="{function.line(xpath.evaluateEx('productItem', '/ITEM/CUSTAMOUNT/text()'))}" visible="invisible" />
+								</WINDOW>
+								<IMAGE id="saleArrow" layout="145,2,25,28" defaultImg="/res/pic_item_sale.png" visible="invisible" />
+								<LABEL layout="170,0,140,63" text="{xpath.evaluateEx('productItem', '/ITEM/AMOUNT/text()')}원" fontSize="28" fontStyle="bold" textColor="#fe7200" textAlign="right" />
+							</WINDOW>
+						</WINDOW>
+					</WINDOW>
+
+					<WINDOW layout="366,116" align="linear:vertical">
+						<WINDOW id="detailBtn" layout="366,43" align="linear:horozontal" margin="0,22,0,0" visible="invisible">
+							<BUTTON layout="108,43" defaultImg="/res/btn_item_detail_off.png" pressedImg="/res/btn_item_detail.png" onClick="function.product_info" target="root.new" margin="10,0,0,0" />
+							<BUTTON layout="108,43" defaultImg="/res/btn_item_buy_off.png" pressedImg="/res/btn_item_buy.png" onClick="function.buing" margin="10,0,0,0" />
+							<BUTTON layout="108,43" defaultImg="/res/btn_item_cart_off.png" pressedImg="/res/btn_item_cart.png" visible="{userVariable.shoppingBasketStauts}" onClick="function.shoppingBasketSave"
+								margin="10,0,0,0" />
+						</WINDOW>
+					</WINDOW>
+				</WINDOW>
+			</WINDOW>
+		</WINDOW>
+	</UILAYOUT>
+	<CMD cmd="function.infobarAni" delay="1000" />
+	<CMD cmd="userVariable.photo_img=xpath.evaluateEx('caller.productItem', '/ITEM/IMAGE/IMAGE[1]/text()')" />
+</MOML>
+
+    
+    
+
+	

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<FUNCTION id="reloadingCondition">
+		<CMD condition="userVariable.photo_path == ''" cmd="function.contentsInvisible" elseCmd="function.contentsVisible" />
+	</FUNCTION>
+
+	<FUNCTION id="contentsInvisible">
+		<CMD cmd="layout_default_contents.visible='visible'" />
+		<CMD cmd="layout_contents.visible='invisible'" />
+	</FUNCTION>
+
+	<FUNCTION id="contentsVisible">
+		<CMD cmd="layout_default_contents.visible='invisible'" />
+		<CMD cmd="layout_contents.visible='visible'" />
+	</FUNCTION>
+
+	<FUNCTION id="reloadingContents">
+		<CMD cmd="photo_contents.defaultImg=userVariable.photo_path" />
+	</FUNCTION>
+
+	<FUNCTION id="changeButton_brand">
+		<CMD cmd="brand.defaultImg='/res/btn_brand_main_on.png'" />
+		<CMD cmd="totalBrand.defaultImg='/res/btn_brand_all_off.png'" />
+		<CMD cmd="brand_container.selectItem = 'brand_page1'" />
+	</FUNCTION>
+
+	<FUNCTION id="changeButton_totalBrand">
+		<CMD cmd="brand.defaultImg='/res/btn_brand_main_off.png'" />
+		<CMD cmd="totalBrand.defaultImg='/res/btn_brand_all_on.png'" />
+		<CMD cmd="brand_container.selectItem = 'brand_page2'" />
+	</FUNCTION>
+
+
+	<UILAYOUT landscape="800,442">
+		<WINDOW layout="0,0,800,442" align="linear:vertical">
+			<!-- 뒤로 , 홈 으로 가기 -->
+			<WINDOW layout="800,61" align="linear:horizental" defaultImg="/res/header_bg.png">
+				<BUTTON layout="86,52" defaultImg="/res/btn_back.png" pressedImg="/res/btn_back_off.png" align="linear:left" onClick="action:back('root.start_navigationContainer')" margin="13,3,0,0" />
+				<LABEL layout="238,1" />
+				<IMAGE layout="126,33" defaultImg="/res/header_loge.png" align="linear:center" margin="0,15,0,0" />
+				<LABEL layout="260,1" />
+				<BUTTON layout="64,51" defaultImg="/res/btn_home.png" pressedImg="/res/btn_home_off.png" align="linear:right" onClick="action:back('root.start_navigationContainer')" margin="0,3,0,0" />
+			</WINDOW>
+
+			<WINDOW id="window_brand_product_title" layout="800,54" align="relative" defaultImg="/res/header_brand.png">
+				<LABEL id="brand" layout="536,25,124,32" defaultImg="/res/btn_brand_main_on.png" align="linear:left" onClick="function.changeButton_brand" margin="10,3,0,0" />
+				<LABEL id="totalBrand" layout="664,25,124,32" defaultImg="/res/btn_brand_all_off.png" align="linear:right" onClick="function.changeButton_totalBrand" margin="10,3,0,0" />
+			</WINDOW>
+			<WINDOW layout="800,327" align="relative">
+				<NAVIGATIONCONTAINER id="brand_container" layout="0,0,800,327" selectedItem="brand_page1">
+					<VIEWITEM id="brand_page1" src="url:brand.xml" transitionInEffect="none" transitionOutEffect="none" />
+					<VIEWITEM id="brand_page2" src="url:totalBrand.xml" transitionInEffect="none" transitionOutEffect="none" />
+				</NAVIGATIONCONTAINER>
+			</WINDOW>
+		</WINDOW>
+	</UILAYOUT>
+	<CMD cmd="userVariable.photo_path=''" />
+</MOML>
+
+    
+    
+
+	

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<FUNCTION id="reloadingCondition">
+		<CMD condition="userVariable.photo_path == ''" cmd="function.contentsInvisible" elseCmd="function.contentsVisible" />
+	</FUNCTION>
+
+	<FUNCTION id="contentsInvisible">
+		<CMD cmd="layout_default_contents.visible='visible'" />
+		<CMD cmd="layout_contents.visible='invisible'" />
+	</FUNCTION>
+
+	<FUNCTION id="contentsVisible">
+		<CMD cmd="layout_default_contents.visible='invisible'" />
+		<CMD cmd="layout_contents.visible='visible'" />
+	</FUNCTION>
+
+	<FUNCTION id="thumbnail(index)">
+		<CMD cmd="thumbnail_01.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[1]/IMAGE/text()')" />
+		<CMD cmd="thumbnail_02.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[2]/IMAGE/text()')" />
+		<CMD cmd="thumbnail_03.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[3]/IMAGE/text()')" />
+		<CMD cmd="thumbnail_04.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[4]/IMAGE/text()')" />
+		<CMD cmd="thumbnail_05.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[5]/IMAGE/text()')" />
+		<CMD cmd="thumbnail_06.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[6]/IMAGE/text()')" />
+		<CMD cmd="thumbnail_07.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[7]/IMAGE/text()')" />
+		<CMD cmd="thumbnail_08.defaultImg=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+index+']/ITEMLIST/ITEM[8]/IMAGE/text()')" />
+		<CMD cmd="userVariable.groupNum= index" />
+	</FUNCTION>
+
+	<FUNCTION id="go_proDetail">
+		<CMD cmd="userVariable.productURL=xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP['+userVariable.groupNum+']/ITEMLIST/ITEM[' + parameter.param[0] + ']/URL/text()')" />
+		<CMD cmd="userVariable.shoppingBasketStauts = 'visible'" />
+		<CMD cmd="action:go('root.start_navigationContainer', 'brandProductDetail')" />
+	</FUNCTION>
+
+
+	<DATASOURCE id="brandmain" src="http://www.marihas.com/logeo/brandmain.php" />
+
+	<UILAYOUT landscape="800,327">
+		<!-- 본문 -->
+		<WINDOW layout="0,0,800,327" align="linear:horizontal" defaultImg="/res/bg_442.png">
+			<!-- 좌측 브랜드 목록 -->
+			<WINDOW layout="141,327" align="linear:vertical|center|top" defaultImg="/res/section_left.png" scroll="vertical" scrollBarVisible="true">
+				<WINDOW layout="117,191" align="linear:vertical|center" defaultImg="/res/thumb_bg.png" margin="0,13,0,0">
+					<BUTTON id="photo_item1" layout="115,189" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/BRANDTITLE/IMAGE/TITLE/text()')}"
+						onClick="function.thumbnail('1')" />
+				</WINDOW>
+				<WINDOW layout="117,191" align="linear:vertical|center" defaultImg="/res/thumb_bg.png" margin="0,13,0,0">
+					<BUTTON id="photo_item2" layout="115,189" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[2]/BRANDTITLE/IMAGE/TITLE/text()')}"
+						onClick="function.thumbnail('2')" />
+				</WINDOW>
+				<WINDOW layout="117,191" align="linear:vertical|center" defaultImg="/res/thumb_bg.png" margin="0,13,0,0">
+					<BUTTON id="photo_item3" layout="115,189" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[3]/BRANDTITLE/IMAGE/TITLE/text()')}"
+						onClick="function.thumbnail('3')" />
+				</WINDOW>
+				<LABEL layout="5,13" />
+			</WINDOW><!-- 좌측 브랜드 목록 -->
+
+			<!-- 브랜드 contents -->
+			<WINDOW layout="650,327" align="relative">
+				<!-- 선택 목록 이미지 -->
+				<WINDOW id="layout_contents" layout="10,10,670,327" align="relative">
+					<LABEL layout="0,0,54,54" />
+					<IMAGE layout="8,0,620,311" defaultImg="/res/brand_itemthumb_bg_empty.png" />
+					<WINDOW id="photo_contents" layout="35,31,620,311" align="relative">
+						<WINDOW layout="0,0,640,124" align="relative">
+							<WINDOW layout="0,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_01" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[1]/IMAGE/text()')}"
+									onClick="function.go_proDetail(1)" />
+							</WINDOW>
+							<WINDOW layout="145,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_02" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[2]/IMAGE/text()')}"
+									onClick="function.go_proDetail(2)" />
+							</WINDOW>
+							<WINDOW layout="290,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_03" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[3]/IMAGE/text()')}"
+									onClick="function.go_proDetail(3)" />
+							</WINDOW>
+							<WINDOW layout="435,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_04" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[4]/IMAGE/text()')}"
+									onClick="function.go_proDetail(4)" />
+							</WINDOW>
+						</WINDOW>
+						<WINDOW layout="0,131,628,124" align="relative">
+							<WINDOW layout="0,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_05" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[5]/IMAGE/text()')}"
+									onClick="function.go_proDetail(5)" />
+							</WINDOW>
+							<WINDOW layout="145,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_06" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[6]/IMAGE/text()')}"
+									onClick="function.go_proDetail(6)" />
+							</WINDOW>
+							<WINDOW layout="290,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_07" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[7]/IMAGE/text()')}"
+									onClick="function.go_proDetail(7)" />
+							</WINDOW>
+							<WINDOW layout="435,0,138,124" align="relative" defaultImg="/res/thumb_bg.png">
+								<BUTTON id="thumbnail_08" layout="1,1,136,122" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluateEx('brandmain', '/DATA/BRANDGROUP[1]/ITEMLIST/ITEM[8]/IMAGE/text()')}"
+									onClick="function.go_proDetail(8)" />
+							</WINDOW>
+						</WINDOW>
+					</WINDOW>
+				</WINDOW> <!--선택 목록 이미지 -->
+			</WINDOW><!-- 브랜드 contents -->
+		</WINDOW><!-- 본문 END -->
+	</UILAYOUT>
+	<CMD cmd="userVariable.groupNum='1'" />
+</MOML>

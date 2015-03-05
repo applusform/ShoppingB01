@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML>
+	<APPLICATIONINFO>
+		<!-- Load xml file in asset. -->
+		<NAME name="Marihas" appFolder="marihas" />
+		<START url="ui/start.xml" />
+		<ORIENTATION type="landscape" />
+		<AUTOFIT toleranceRatio="30" backgroundImg="#00000000" />
+		<_DEBUG log="all" />
+	</APPLICATIONINFO>
+</MOML>

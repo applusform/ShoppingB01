@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<THEMES id="prodeuctListTheme">
+		<THEME id="themeCategoryLabel" layout="auto,45" fontSize="15" textColor="#cecdcd" textAlign="center" margin="16,0,0,0" multiLine="false" />
+		<THEME id="themeCategoryBar" layout="2px,13" margin="16,0,0,0" defaultImg="/res/bar_cat_02.png" />
+		<THEME id="themeListMaker" fontSize="18" fontStyle="bold" textColor="#da080b" />
+		<THEME id="themeListName" fontSize="14" fontStyle="bold" textColor="#404040" minFontSize="0" ellipsis="end" multiLine="true" />
+		<THEME id="themeListCustam" fontSize="15" textColor="#a1a1a1" fontStyle="bold" textAlign="center" />
+		<THEME id="themeListMount" fontSize="23" textColor="#fe6c00" fontStyle="bold" textAlign="right|center" />
+	</THEMES>
+
+	<FUNCTION id="go_proDetail">
+		<CMD cmd="userVariable.shoppingBasketStauts = 'visible'" />
+		<CMD cmd="action:go('root.start_navigationContainer', 'productCategoryDetail')" />
+	</FUNCTION>
+
+	<FUNCTION id="noDataCheck(value)">
+		<CMD condition="value == ''" cmd="noDataWindow.height= 332, productList.height = 0" elseCmd="noDataWindow.height= 0, productList.height = 332" />
+	</FUNCTION>
+
+	<FUNCTION id="sort_total">
+		<CMD cmd="productList.dataSource=xmlProcessing.groupByOrder(userVariable.categotyURL, '/DATA/ITEMLIST/ITEM', 2, 'ITEMGROUP')" />
+		<CMD cmd="function.noDataCheck(xmlProcessing.groupByOrder(userVariable.categotyURL, '/DATA/ITEMLIST/ITEM', 2, 'ITEMGROUP'))" />
+		<CMD cmd="function.categoryName_color" />
+		<CMD cmd="sortTotal.textColor='#fe6d3a'" />
+	</FUNCTION>
+
+	<FUNCTION id="sort(index, textId)">
+		<CMD cmd="productList.dataSource=xmlProcessing.groupByOrder(xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY['+index+']/URL/text()'), '/DATA/ITEMLIST/ITEM', 2, 'ITEMGROUP')" />
+		<CMD cmd="function.noDataCheck(xmlProcessing.groupByOrder(xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY['+index+']/URL/text()'), '/DATA/ITEMLIST/ITEM', 2, 'ITEMGROUP'))" />
+		<CMD cmd="function.categoryName_color" />
+		<CMD cmd="application.runScript(textId  + '.textColor = ' +'\'#fe6d3a\'')" />
+	</FUNCTION>
+
+	<FUNCTION id="categoryName_color">
+		<CMD cmd="sort1.textColor='#cecdcd'" />
+		<CMD cmd="sort2.textColor='#cecdcd'" />
+		<CMD cmd="sort3.textColor='#cecdcd'" />
+		<CMD cmd="sort4.textColor='#cecdcd'" />
+		<CMD cmd="sort5.textColor='#cecdcd'" />
+		<CMD cmd="sort6.textColor='#cecdcd'" />
+		<CMD cmd="sort7.textColor='#cecdcd'" />
+		<CMD cmd="sort8.textColor='#cecdcd'" />
+		<CMD cmd="sort9.textColor='#cecdcd'" />
+		<CMD cmd="sort10.textColor='#cecdcd'" />
+		<CMD cmd="sortTotal.textColor='#cecdcd'" />
+	</FUNCTION>
+
+	<FUNCTION id="checkLabel">
+		<CMD condition="caller.sort3.text==''" cmd="caller.sort3bar.visible='invisible'" />
+		<CMD condition="caller.sort4.text==''" cmd="caller.sort4bar.visible='invisible'" />
+		<CMD condition="caller.sort5.text==''" cmd="caller.sort5bar.visible='invisible'" />
+		<CMD condition="caller.sort6.text==''" cmd="caller.sort6bar.visible='invisible'" />
+		<CMD condition="caller.sort7.text==''" cmd="caller.sort7bar.visible='invisible'" />
+		<CMD condition="caller.sort8.text==''" cmd="caller.sort8bar.visible='invisible'" />
+		<CMD condition="caller.sort9.text==''" cmd="caller.sort9bar.visible='invisible'" />
+		<CMD condition="caller.sort10.text==''" cmd="caller.sort10bar.visible='invisible'" />
+	</FUNCTION>
+
+	<FUNCTION id="left_isEmpty">
+		<CMD condition="string.len(parameter.param[0])==0" cmd="''" elseCmd="parameter.param[0]+'원'" />
+	</FUNCTION>
+
+	<FUNCTION id="left_line">
+		<CMD condition="string.len(parameter.param[0])==0" cmd="''" elseCmd="'/res/pic_item_pricebar.png'" />
+	</FUNCTION>
+
+	<FUNCTION id="right_isEmpty">
+		<CMD condition="string.len(parameter.param[0])==0" cmd="''" elseCmd="parameter.param[0]+'원'" />
+	</FUNCTION>
+
+	<FUNCTION id="right_line">
+		<CMD condition="string.len(parameter.param[0])==0" cmd="''" elseCmd="'/res/pic_item_pricebar.png'" />
+	</FUNCTION>
+
+
+	<DATASOURCE id="category" src="{userVariable.categotyURL}" />
+	<CMD cmd="function.checkLabel" />
+	<UILAYOUT landscape="800,442" theme="prodeuctListTheme">
+		<WINDOW layout="0,0,800,442" align="relative" defaultImg="/res/bg_442.png">
+			<!-- 뒤로 , 홈 으로 가기 -->
+			<WINDOW layout="0,0,800,61" align="linear:horizental" defaultImg="/res/header_bg.png">
+				<BUTTON layout="86,52" defaultImg="/res/btn_back.png" pressedImg="/res/btn_back_off.png" onClick="action:back('root.start_navigationContainer')" margin="13,3,0,0" />
+				<IMAGE layout="126,33" defaultImg="/res/header_loge.png" align="linear:center" margin="238,15,0,0" />
+				<BUTTON layout="64,51" defaultImg="/res/btn_home.png" pressedImg="/res/btn_home_off.png" onClick="action:go('root.start_navigationContainer', 'start_app')" margin="260,3,0,0" />
+			</WINDOW>
+
+			<WINDOW layout="0,61,800,46" align="linear:horizontal|subCenter" defaultImg="/res/header_cat_bg.png">
+				<LABEL id="category_title" layout="auto,45" text="{userVariable.category_name}" fontSize="20" textColor="#00ff00" fontStyle="bold" textAlign="center" multiLine="false" margin="30,0,0,0" />
+				<WINDOW layout="{800-category_title.width-60},45" align="linear:horizontal|subCenter" scroll="horizontal" scrollBarVisible="false" margin="30,0,0,0">
+					<IMAGE layout="2,13" defaultImg="/res/bar_cat_02.png" />
+					<LABEL id="sortTotal" layout="60,45" text="전체" fontSize="15" textColor="#fe6d3a" onClick="function.sort_total" textAlign="center" />
+					<IMAGE layout="1.5,13" defaultImg="/res/bar_cat_02.png" />
+					<LABEL id="sort1" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[1]/NAME/text()')}" onClick="function.sort('1','sort1')" />
+					<IMAGE id="sort2bar" themeId="themeCategoryBar" />
+					<LABEL id="sort2" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[2]/NAME/text()')}" onClick="function.sort('2','sort2')" />
+					<IMAGE id="sort3bar" themeId="themeCategoryBar" />
+					<LABEL id="sort3" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[3]/NAME/text()')}" onClick="function.sort('3','sort3')" />
+					<IMAGE id="sort4bar" themeId="themeCategoryBar" />
+					<LABEL id="sort4" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[4]/NAME/text()')}" onClick="function.sort('4','sort4')" />
+					<IMAGE id="sort5bar" themeId="themeCategoryBar" />
+					<LABEL id="sort5" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[5]/NAME/text()')}" onClick="function.sort('5','sort5')" />
+					<IMAGE id="sort6bar" themeId="themeCategoryBar" />
+					<LABEL id="sort6" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[6]/NAME/text()')}" onClick="function.sort('6','sort6')" />
+					<IMAGE id="sort7bar" themeId="themeCategoryBar" />
+					<LABEL id="sort7" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[7]/NAME/text()')}" onClick="function.sort('7','sort7')" />
+					<IMAGE id="sort8bar" themeId="themeCategoryBar" />
+					<LABEL id="sort8" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[8]/NAME/text()')}" onClick="function.sort('8','sort8')" />
+					<IMAGE id="sort9bar" themeId="themeCategoryBar" />
+					<LABEL id="sort9" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[9]/NAME/text()')}" onClick="function.sort('9','sort9')" />
+					<IMAGE id="sort10bar" themeId="themeCategoryBar" />
+					<LABEL id="sort10" themeId="themeCategoryLabel" text="{xpath.evaluateEx('category', '/DATA/CATEGORYGROUP/CATEGORY[10]/NAME/text()')}" onClick="function.sort('10','sort10')" />
+				</WINDOW>
+			</WINDOW>
+			<!-- 제품 목록 -->
+			<LABEL id="noDataWindow" layout="0,107,800,0" text="해당 상품이 없습니다." fontSize="40" fontStyle="bold" textAlign="center" />
+			<LIST2 id="productList" layout="0,107,800,332" dataSource="{xmlProcessing.groupByOrder(userVariable.categotyURL, '/DATA/ITEMLIST/ITEM', 2, 'ITEMGROUP')}" dataList="/DATA/ITEMLIST/ITEMGROUP"
+				divider="#00000000">
+				<!-- 좌측, 우측 아이템 표시 -->
+				<LISTLAYOUT condition="xpath.evaluate('count(./ITEM)')=='2'">
+					<!-- 좌측 -->
+					<WINDOW layout="0,0,400,110" align="relative" defaultImg="/res/item_list_section.png">
+						<IMAGE layout="26,6,100,100" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[1]/IMAGE/text()')}" />
+						<WINDOW layout="25,5,102,102" defaultImg="/res/thumb_bg.png" />
+						<LABEL themeId="themeListMaker" layout="140,5,233,20" text="{xpath.evaluate('ITEM[1]/MAKER/text()')}" />
+						<LABEL themeId="themeListName" layout="140,30,233,45" text="{xpath.evaluate('ITEM[1]/NAME/text()')}" />
+						<LABEL themeId="themeListCustam" layout="140,75,80,35" text="{function.left_isEmpty(xpath.evaluate('ITEM[1]/CUSTAMOUNT/text()'))}">
+							<IMAGE layout="0,16,80,1" defaultImg="{function.left_line(xpath.evaluate('ITEM[1]/CUSTAMOUNT/text()'))}" />
+						</LABEL>
+						<LABEL themeId="themeListMount" layout="227,75,153,35" text="{xpath.evaluate('ITEM[1]/AMOUNT/text()')}원" />
+						<IMAGE layout="370,43,17,19" defaultImg="/res/ico_more.png" />
+						<BUTTON layout="0,0,400,110" defaultImg="#00000000" pressedImg="#509fd6f2" onClick="userVariable.productURL=xpath.evaluate('ITEM[1]/URL/text()'),function.go_proDetail" />
+					</WINDOW>
+
+					<!-- 우측 -->
+					<WINDOW layout="400,0,400,110" align="relative" defaultImg="/res/item_list_section.png">
+						<IMAGE layout="26,6,100,100" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[2]/IMAGE/text()')}" />
+						<WINDOW layout="25,5,102,102" defaultImg="/res/thumb_bg.png" />
+						<LABEL themeId="themeListMaker" layout="140,5,233,20" text="{xpath.evaluate('ITEM[2]/MAKER/text()')}" />
+						<LABEL themeId="themeListName" layout="140,30,233,45" text="{xpath.evaluate('ITEM[2]/NAME/text()')}" />
+						<LABEL themeId="themeListCustam" layout="140,75,80,35" text="{function.left_isEmpty(xpath.evaluate('ITEM[2]/CUSTAMOUNT/text()'))}">
+							<IMAGE layout="0,16,80,1" defaultImg="{function.left_line(xpath.evaluate('ITEM[2]/CUSTAMOUNT/text()'))}" />
+						</LABEL>
+						<LABEL themeId="themeListMount" layout="227,75,153,35" text="{xpath.evaluate('ITEM[2]/AMOUNT/text()')}원" />
+						<IMAGE layout="370,43,17,19" defaultImg="/res/ico_more.png" />
+						<BUTTON layout="0,0,400,110" defaultImg="#00000000" pressedImg="#509fd6f2" onClick="userVariable.productURL=xpath.evaluate('ITEM[2]/URL/text()'),function.go_proDetail" />
+					</WINDOW>
+				</LISTLAYOUT>
+
+				<!-- 좌측 아이템만 표시 -->
+				<LISTLAYOUT>
+					<WINDOW layout="0,0,400,110" align="relative" defaultImg="/res/item_list_section.png">
+						<WINDOW layout="25,5,102,102" align="linear:vertical|center" defaultImg="/res/thumb_bg.png">
+							<IMAGE layout="100,100" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[1]/IMAGE/text()')}" />
+						</WINDOW>
+						<LABEL themeId="themeListMaker" layout="140,5,233,20" text="{xpath.evaluate('ITEM[1]/MAKER/text()')}" />
+						<LABEL themeId="themeListName" layout="140,30,233,45" text="{xpath.evaluate('ITEM[1]/NAME/text()')}" />
+						<LABEL themeId="themeListCustam" layout="140,75,80,35" text="{function.left_isEmpty(xpath.evaluate('ITEM[1]/CUSTAMOUNT/text()'))}">
+							<IMAGE layout="0,16,80,1" defaultImg="{function.left_line(xpath.evaluate('ITEM[1]/CUSTAMOUNT/text()'))}" />
+						</LABEL>
+						<LABEL themeId="themeListMount" layout="227,75,153,35" text="{xpath.evaluate('ITEM[1]/AMOUNT/text()')}원" />
+						<IMAGE layout="370,43,17,19" defaultImg="/res/ico_more.png" />
+						<BUTTON layout="0,0,400,110" defaultImg="#00000000" pressedImg="#509fd6f2" onClick="userVariable.productURL=xpath.evaluate('ITEM[1]/URL/text()'),function.go_proDetail" />
+					</WINDOW>
+				</LISTLAYOUT>
+			</LIST2>
+		</WINDOW>
+	</UILAYOUT>
+</MOML>
+
+    
+    
+
+	

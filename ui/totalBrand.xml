@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<FUNCTION id="go_brandcategory">
+		<CMD cmd="action:go('root.start_navigationContainer', 'totolBrandProduct')" />
+	</FUNCTION>
+	<UILAYOUT landscape="800,327">
+		<WINDOW layout="0,0,800,327" align="relative" defaultImg="/res/bg_442.png">
+			<WINDOW layout="50,45,700,235" align="relative">
+				<LIST2 layout="0,0,700,228" dataSource="{xmlProcessing.groupByOrder('http://www.marihas.com/logeo/brandall.php', '/DATA/ITEMLIST/ITEM', 5, 'ITEMGROUP')}" dataList="/DATA/ITEMLIST/ITEMGROUP"
+					divider="#00b0ac9f">
+					<LISTLAYOUT condition="xpath.evaluate('count(./ITEM)') == '5'">
+						<WINDOW layout="0,0,700,80" align="linear:horizontal|center">
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[1]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[1]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[2]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[2]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[3]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[3]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[4]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[4]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[5]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[5]/URL/text()'),function.go_brandcategory" />
+						</WINDOW>
+					</LISTLAYOUT>
+
+					<LISTLAYOUT condition="xpath.evaluate('count(./ITEM)') == '4'">
+						<WINDOW layout="0,0,700,80" align="linear:horizontal|center">
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[1]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[1]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[2]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[2]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[3]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[3]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[4]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[4]/URL/text()'),function.go_brandcategory" />
+						</WINDOW>
+					</LISTLAYOUT>
+
+					<LISTLAYOUT condition="xpath.evaluate('count(./ITEM)') == '3'">
+						<WINDOW layout="0,0,700,80" align="linear:horizontal|center">
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[1]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[1]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[2]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[2]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[3]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[3]/URL/text()'),function.go_brandcategory" />
+						</WINDOW>
+					</LISTLAYOUT>
+
+					<LISTLAYOUT condition="xpath.evaluate('count(./ITEM)') == '2'">
+						<WINDOW layout="0,0,700,80" align="linear:horizontal|center">
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[1]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[1]/URL/text()'),function.go_brandcategory" />
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[2]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('ITEM[2]/URL/text()'),function.go_brandcategory" />
+						</WINDOW>
+					</LISTLAYOUT>
+					<LISTLAYOUT>
+						<WINDOW layout="0,0,700,80" align="linear:horizontal|center">
+							<BUTTON layout="140,60" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('ITEM[1]/IMAGE/text()')}" onClick="userVariable.brandURL=xpath.evaluate('URL/text()'),function.go_brandcategory" />
+						</WINDOW>
+					</LISTLAYOUT>
+				</LIST2>
+			</WINDOW>
+		</WINDOW>
+	</UILAYOUT>
+</MOML>

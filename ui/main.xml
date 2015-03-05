@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<FUNCTION id="main_icon_ani">
+		<CMD cmd="animation.flyIn('main_btn_0', 328, 96, 118, 155, 'easeOut1', 500, '')" />
+		<CMD cmd="animation.flyIn('main_btn_1', 84, 96, 118, 155, 'easeOut1', 500, '')" />
+		<CMD cmd="animation.flyIn('main_btn_2', -123, 96, 118, 155, 'easeOut1', 500, '')" />
+		<CMD cmd="animation.flyIn('main_btn_3', 336, -123, 118, 155, 'easeOut1', 500, '')" />
+		<CMD cmd="animation.flyIn('main_btn_4', 171, -123, 118, 155, 'easeOut1', 500, '')" />
+		<CMD cmd="animation.flyIn('main_btn_5', -31, -123, 118, 155, 'easeOut1', 500, '')" />
+		<CMD cmd="animation.flyIn('main_btn_6', -140, -123, 118, 155, 'easeOut1', 500, 'function.logo')" />
+	</FUNCTION>
+
+	<FUNCTION id="logo">
+		<CMD cmd="animation.rotate('main_logo',360, 80, 28, '', 500, '')" />
+		<CMD cmd="animation.show('main_logo', 'fade', '', 500, '')" />
+	</FUNCTION>
+
+	<FUNCTION id="tab_menu">
+		<CMD condition="userVariable.menu_status == 0" cmd="animation.flyOut('main_menu2', 0, -368, 89,368, 'easeOut3', 400, 'function.menu_up')" elseCmd="animation.flyIn('main_menu2', 0, -368, 89,368, 'easeIn3', 400, 'function.menu_down')" />
+	</FUNCTION>
+
+	<FUNCTION id="tab_recommend_down">
+		<CMD cmd="recommend_bottom_handle.visible='visible'" />
+		<CMD cmd="animation.flyOut('recommend_area', 0, 395, 708, 442, 'easeOut1', 600, '')" />
+		<CMD cmd="recommend_btn.pressedImg='/res/new_main_recommend_btn_sel.png'" />
+		<CMD cmd="recommend_btn.defaultImg='/res/new_main_recommend_btn_on_nor.png'" delay="1100" />
+	</FUNCTION>
+
+	<FUNCTION id="recommend_up_ready">
+		<CMD cmd="recommend_area.visible='invisible'" />
+		<CMD cmd="userVariable.recommend_status=0" />
+		<CMD cmd="function.tab_recommend_up" />
+	</FUNCTION>
+
+	<FUNCTION id="tab_recommend_up">
+		<CMD cmd="animation.flyIn('recommend_area', 0, 387, 708, 442, 'easeOut1', 500, '')" />
+		<CMD cmd="recommend_btn.defaultImg='/res/recommend_btn_nor.png'" delay="1100" />
+		<CMD cmd="recommend_btn.pressedImg='/res/recommend_btn_sel.png'" />
+	</FUNCTION>
+
+	<FUNCTION id="menu_up">
+		<CMD cmd="main_menu2.visible='invisible'" />
+		<CMD cmd="userVariable.menu_status=1" />
+	</FUNCTION>
+
+	<FUNCTION id="menu_down">
+		<CMD cmd="main_menu2.visible='visible'" />
+		<CMD cmd="userVariable.menu_status=0" />
+	</FUNCTION>
+
+	<FUNCTION id="go_category">
+		<CMD cmd="action:go('root.start_navigationContainer', 'productCategory')" />
+	</FUNCTION>
+
+	<FUNCTION id="go_recommend_product">
+		<CMD cmd="userVariable.shoppingBasketStauts = 'visible'" />
+		<CMD cmd="action:go('root.start_navigationContainer', 'recommendDetail')" />
+	</FUNCTION>
+
+	<FUNCTION id="goHomePage">
+		<CMD cmd="userVariable.purchase_url = 'http://www.marihas.com'" />
+		<CMD cmd="action:go('root.start_navigationContainer', 'homePage')" />
+	</FUNCTION>
+
+	<FUNCTION id="recommendCheck"><!-- 카테고리 상태체크 -->
+		<CMD condition="userVariable.recommendStatus == 'false'" cmd="function.recommendVisible" elseCmd="function.recommendInvisible" />
+	</FUNCTION>
+
+	<FUNCTION id="recommendVisible">
+		<CMD cmd="recommend_area.top = 0" />
+		<CMD cmd="userVariable.recommendStatus = 'true'" />
+		<CMD cmd="animation.flyIn('recommend_area', 0, 400 - recommend_area.top, recommend_area.width, recommend_area.height, 'bounceOut', 800, '')" />
+		<CMD cmd="recommendBtn.defaultImg = '/res/recommend_btn_nor.png'" delay="800" />
+		<CMD cmd="recommendBtn.pressedImg = '/res/recommend_btn_sel.png'" delay="800" />
+	</FUNCTION>
+
+	<FUNCTION id="recommendInvisible">
+		<CMD cmd="recommend_area.top = 388" />
+		<CMD cmd="userVariable.recommendStatus = 'false'" />
+		<CMD cmd="animation.flyIn('recommend_area', 0, -388, recommend_area.width, recommend_area.height, 'easeIn4', 400, '')" />
+		<CMD cmd="recommendBtn.defaultImg = '/res/new_main_recommend_btn_on_nor.png'" delay="800" />
+		<CMD cmd="recommendBtn.pressedImg = '/res/new_main_recommend_btn_sel.png'" delay="800" />
+	</FUNCTION>
+
+	<FUNCTION id="goAbout">
+		<CMD cmd="action:go('root.start_navigationContainer', 'about')" />
+	</FUNCTION>
+
+	<DATASOURCE id="mainItem" src="http://www.marihas.com/logeo/index.php" />
+	<DATASOURCE id="recommendItem" src="http://www.marihas.com/logeo/recommend.php" />
+	<CMD cmd="userVariable.recommendStatus = 'false'" />
+	<CMD cmd="function.main_icon_ani" delay="1500" />
+	<UILAYOUT landscape="800,442">
+		<WINDOW layout="0,0,800,442" align="relative" defaultImg="/res/new_main_bg.png">
+			<WINDOW id="anim_area" layout="0,0,700,442" align="relative">
+				<BUTTON id="main_btn_0" layout="45,18,229,159" defaultImg="/res/new_main_btn01_nor.png" pressedImg="/res/new_main_btn01_sel.png" visible="invisible"
+					onClick="userVariable.categotyURL=xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[1]/URL/text()'), userVariable.category_name = xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[1]/NAME/text()'), function.go_category" />
+				<BUTTON id="main_btn_1" layout="289,18,179,159" defaultImg="/res/new_main_btn02_nor.png" pressedImg="/res/new_main_btn02_sel.png" visible="invisible"
+					onClick="userVariable.categotyURL=xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[7]/URL/text()'), userVariable.category_name = xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[7]/NAME/text()'),function.go_category" />
+				<BUTTON id="main_btn_2" layout="496,18,172,159" defaultImg="/res/new_main_btn03_nor.png" pressedImg="/res/new_main_btn03_sel.png" visible="invisible"
+					onClick="userVariable.categotyURL=xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[6]/URL/text()'), userVariable.category_name = xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[6]/NAME/text()'), function.go_category" />
+				<BUTTON id="main_btn_3" layout="37,246,144,145" defaultImg="/res/new_main_btn04_nor.png" pressedImg="/res/new_main_btn04_sel.png" visible="invisible"
+					onClick="userVariable.categotyURL=xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[4]/URL/text()'), userVariable.category_name = xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[4]/NAME/text()'), function.go_category" />
+				<BUTTON id="main_btn_4" layout="202,246,130,143" defaultImg="/res/new_main_btn05_nor.png" pressedImg="/res/new_main_btn05_sel.png" visible="invisible"
+					onClick="userVariable.categotyURL=xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[5]/URL/text()'), userVariable.category_name = xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[5]/NAME/text()'), function.go_category" />
+				<BUTTON id="main_btn_5" layout="342,246,161,143" defaultImg="/res/new_main_btn06_nor.png" pressedImg="/res/new_main_btn06_sel.png" visible="invisible"
+					onClick="userVariable.categotyURL=xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[2]/URL/text()'), userVariable.category_name = xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[2]/NAME/text()'), function.go_category" />
+				<BUTTON id="main_btn_6" layout="513,246,185,144" defaultImg="/res/new_main_btn07_nor.png" pressedImg="/res/new_main_btn07_sel.png" visible="invisible"
+					onClick="userVariable.categotyURL=xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[3]/URL/text()'), userVariable.category_name = xpath.evaluateEx('mainItem', '/DATA/ITEMLIST/ITEM[3]/NAME/text()'), function.go_category" />
+				<IMAGE id="main_logo" layout="272,183,168,60" defaultImg="/res/new_main_logo.png" visible="invisible" />
+			</WINDOW>
+
+			<!-- 추천 상품 탭 화면 -->
+			<WINDOW id="recommend_area" layout="0,388,708,442" defaultImg="/res/recommend.png" align="relative">
+				<BUTTON id="recommendBtn" layout="300,15,105,45" defaultImg="/res/new_main_recommend_btn_on_nor.png" pressedImg="/res/new_main_recommend_btn_sel.png" onClick="function.recommendCheck" />
+				<WINDOW layout="0,42,708,442" align="relative" defaultImg="/res/recommend_bg.png">
+					<WINDOW layout="52,68,398,220" defaultImg="{xpath.evaluateEx('recommendItem', '/DATA/MAINITEM[1]/IMAGEOFF/text()')}" />
+					<IMAGE layout="52,68,398,220" defaultImg="/res/recomm_round_01.png" onClick="userVariable.productURL=xpath.evaluateEx('recommendItem', '/DATA/MAINITEM[1]/URL/text()'), function.go_recommend_product" />
+
+					<WINDOW layout="52,295,194,94" defaultImg="{xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[1]/IMAGEOFF/text()')}" />
+					<IMAGE layout="52,295,194,94" defaultImg="/res/recomm_round_03.png" onClick="userVariable.productURL=xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[1]/URL/text()'), function.go_recommend_product" />
+
+					<WINDOW layout="255,295,194,94" defaultImg="{xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[2]/IMAGEOFF/text()')}" />
+					<IMAGE layout="255,295,194,94" defaultImg="/res/recomm_round_04.png" onClick="userVariable.productURL=xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[2]/URL/text()'), function.go_recommend_product" />
+
+					<WINDOW layout="458,195,194,94" defaultImg="{xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[3]/IMAGEOFF/text()')}" />
+					<IMAGE layout="458,195,194,94" defaultImg="/res/recomm_round_02.png" onClick="userVariable.productURL=xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[3]/URL/text()'), function.go_recommend_product" />
+
+					<WINDOW layout="458,295,194,94" defaultImg="{xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[4]/IMAGEOFF/text()')}" />
+					<IMAGE layout="458,295,194,94" defaultImg="/res/recomm_round_05.png" onClick="userVariable.productURL=xpath.evaluateEx('recommendItem', '/DATA/ITEMLIST/ITEM[4]/URL/text()'), function.go_recommend_product" />
+
+					<IMAGE layout="458,85,179,102" defaultImg="/res/recommend_marihas.png" />
+				</WINDOW>
+			</WINDOW>
+
+			<!-- 우측 메뉴 -->
+			<WINDOW id="main_tabs" layout="700,0,100,442" align="relative" visible="visible">
+				<WINDOW id="main_menu" layout="0,0,100,442" align="relative" defaultImg="/res/new_main_menu_underbg.png">
+					<WINDOW id="main_menu1" layout="11,0,89,442" align="linear:vertical">
+						<!-- 메뉴 영역 -->
+						<BUTTON layout="87,87" defaultImg="/res/new_main_menu06_nor.png" pressedImg="/res/new_main_menu06_sel.png" onClick="function.goHomePage" margin="0,23,0,0" />
+						<BUTTON layout="87,87" defaultImg="/res/new_main_menu05_nor.png" pressedImg="/res/new_main_menu05_sel.png" onClick="action:go('root.start_navigationContainer', 'customerService')" margin="0,20,0,0" />
+						<BUTTON layout="87,87" defaultImg="/res/shoppingBasket_off.png" pressedImg="/res/shoppingBasket_on.png" onClick="action:go('root.start_navigationContainer', 'shoppingBasket')" margin="0,20,0,0" />
+						<BUTTON layout="87,87" defaultImg="/res/new_main_menu04_nor.png" pressedImg="/res/new_main_menu04_sel.png" onClick="function.tab_menu" margin="0,20,0,0" />
+					</WINDOW>
+				</WINDOW>
+
+				<WINDOW id="main_menu2" layout="11,0,89,368" align="linear:vertical" defaultImg="/res/new_main_menu_bg.png">
+					<BUTTON layout="87,87" defaultImg="/res/new_main_menu01_nor.png" pressedImg="/res/new_main_menu01_sel.png" onClick="action:go('root.start_navigationContainer', 'bestProduct')" margin="0,23,0,0" />
+					<BUTTON layout="87,87" defaultImg="/res/new_main_menu02_nor.png" pressedImg="/res/new_main_menu02_sel.png" onClick="action:go('root.start_navigationContainer', 'brandProduct')" margin="0,20,0,0" />
+					<BUTTON layout="87,87" defaultImg="/res/new_main_menu03_nor.png" pressedImg="/res/new_main_menu03_sel.png" onClick="action:go('root.start_navigationContainer', 'introduction')" margin="0,20,0,0" />
+				</WINDOW>
+			</WINDOW>
+			<BUTTON layout="5,5,48,48" defaultImg="/res/infobw.png" onClick="function.goAbout" />
+		</WINDOW>
+	</UILAYOUT>
+
+</MOML>

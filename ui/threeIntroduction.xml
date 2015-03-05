@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<FUNCTION id="startAni_introduce3">
+		<CMD cmd="animation.flyIn('introduce3_1', -100, 0, 85, 56, 'easeOut1', 500, 'function.startAni_introduce3_text1')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_introduce3_text1">
+		<CMD cmd="animation.flyIn('introduce3_2', -100, 0, 99, 139, 'easeOut1', 500, 'function.startAni_introduce3_text2')" />
+	</FUNCTION>
+	<FUNCTION id="startAni_introduce3_text2">
+		<CMD cmd="animation.flyIn('introduce3_3', -100, 0, 510, 139, 'easeOut1', 1000, '')" />
+	</FUNCTION>
+	<UILAYOUT landscape="800,381">
+		<!-- 본문 -->
+		<WINDOW layout="0,0,800,381" align="linear:vertical" defaultImg="/res/bg_442.png" onFlickRight="action:go('root.start_navigationContainer.introduction.introduce_navigationContainer','twoIntroduction')">
+			<LABEL layout="87,87" />
+			<WINDOW layout="800, 139" align="linear:horizontal">
+				<LABEL layout="48,48" />
+				<IMAGE id="introduce3_1" layout="85,56" defaultImg="/res/intro03_info01.png" visible="invisible" />
+				<IMAGE id="introduce3_2" layout="99,139" defaultImg="/res/intro03_info02.png" visible="invisible" />
+				<IMAGE id="introduce3_3" layout="510,139" defaultImg="/res/intro03_info03.png" visible="invisible" />
+			</WINDOW>
+			<LABEL layout="27,27" />
+			<WINDOW layout="800,129" align="relative">
+				<WINDOW layout="385,90,30,10" align="linear:horizontal">
+					<IMAGE layout="10,10" defaultImg="/res/blet_paging_current.png" />
+					<IMAGE layout="10,10" defaultImg="/res/blet_paging_current.png" />
+					<IMAGE layout="10,10" defaultImg="/res/blet_paging.png" />
+				</WINDOW>
+				<IMAGE id="cup" layout="589,0,189,128" margin="0,0,23,0" defaultImg="/res/intro03_info_item.png" />
+			</WINDOW>
+		</WINDOW>
+	</UILAYOUT>
+	<CMD cmd="function.startAni_introduce3" delay="1000" />
+</MOML>

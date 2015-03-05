@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+-->
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+
+	<FUNCTION id="dataDel">
+		<CMD cmd="db.exec('DELETE FROM shoppingBasket WHERE _id='+userVariable.productPosition+'')" />
+		<CMD cmd="function.load" />
+	</FUNCTION>
+
+	<FUNCTION id="go_shoppingBasketDetail">
+		<CMD cmd="userVariable.shoppingBasketStauts = 'invisible'" />
+		<CMD cmd="action:go('root.start_navigationContainer', 'shoppingBasketDetail')" />
+	</FUNCTION>
+
+	<FUNCTION id="load">
+		<CMD cmd="db.exec('SELECT * FROM shoppingBasket ORDER BY _id DESC')" />
+		<CMD condition="db.result.rowCount &gt; 0" cmd="basket_list.dataSource=db.result.getXmlData" />
+		<CMD condition="db.result.rowCount == 0" cmd="basket_list.dataSource='', noitem.visible='visible'" />
+	</FUNCTION>
+
+	<UILAYOUT landscape="800,442">
+		<WINDOW layout="0,0,800,442" align="relative" defaultImg="/res/bg_442.png">
+			<!-- 뒤로 , 홈 으로 가기 -->
+			<WINDOW layout="0,0,800,61" align="linear:horizental" defaultImg="/res/header_bg.png">
+				<BUTTON layout="86,52" defaultImg="/res/btn_back.png" pressedImg="/res/btn_back_off.png" onClick="action:back('root.start_navigationContainer')" margin="13,3,0,0" />
+				<IMAGE layout="126,33" defaultImg="/res/header_loge.png" align="linear:center" margin="238,15,0,0" />
+				<BUTTON layout="64,51" defaultImg="/res/btn_home.png" pressedImg="/res/btn_home_off.png" onClick="action:go('root.start_navigationContainer', 'start_app')" margin="260,3,0,0" />
+			</WINDOW>
+			<WINDOW layout="0,61,800,381" align="linear:vertical">
+				<!-- 제품 목록 -->
+				<LABEL layout="3,3" />
+				<LIST2 id="basket_list" layout="800,381" dataList="/DATA/ROW" divider="#000000">
+					<LISTLAYOUT>
+						<WINDOW layout="0,0,800,120" align="linear:horizontal">
+							<WINDOW layout="800,120" align="linear:horizontal">
+								<WINDOW layout="120,120" align="linear:vertical|center">
+									<WINDOW layout="102,102" align="linear:vertical|center" defaultImg="/res/thumb_bg.png">
+										<IMAGE layout="100,100" loadingEffect="fadeIn" loadingImg="/res/defaultImg.jpg" defaultImg="{xpath.evaluate('@image')}" />
+									</WINDOW>
+								</WINDOW>
+								<WINDOW layout="400,120" align="linear:vertical|center">
+									<LABEL layout="380,30" text="{xpath.evaluate('@maker')}" fontSize="22" fontStyle="bold" textColor="#da080b" textAlign="left|center" margin="20,10,0,0" />
+									<LABEL layout="380,80" text="{xpath.evaluate('@name')}" fontSize="20" fontStyle="bold" textColor="#404040" textAlign="left" margin="20,0,0,0" />
+								</WINDOW>
+								<WINDOW layout="180,120" align="linear:vertical|center">
+									<LABEL layout="180,120" text="{xpath.evaluate('@amount')}원" textAlign="right|center" fontSize="28" fontStyle="bold" textColor="#fe7200" />
+								</WINDOW>
+							</WINDOW>
+						</WINDOW>
+						<BUTTON layout="0,0,800,120" defaultImg="#00000000" pressedImg="#509fd6f2" onClick="userVariable.productURL=xpath.evaluate('@link_url'),function.go_shoppingBasketDetail"></BUTTON>
+						<BUTTON layout="720,35,37,45" align="linear:left|center" defaultImg="/res/del_btn_on.png"
+							onClick="userVariable.productPosition=xpath.evaluate('@_id'),device.systemPopup('장바구니', '삭제하시겠습니까?', '예:function.dataDel', '아니요','')" />
+					</LISTLAYOUT>
+				</LIST2>
+			</WINDOW>
+			<LABEL id="noitem" layout="0,0,800,381" fontSize="40" fontStyle="bold" textAlign="center" text="장바구니가 비어 있습니다." visible="invisible" />
+		</WINDOW>
+	</UILAYOUT>
+	<CMD cmd="function.load" />
+</MOML>
+
+    
+    
+
+	
